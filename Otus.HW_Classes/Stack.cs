@@ -1,34 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Otus.HW_Classes
+﻿namespace Otus.HW_Classes
 {
     public class Stack
     {
         //поля
-        //private List<string> stackList;
-        private StackItem stackItemVar;
-
+        private Item? _head;
+        private Item? _tail;
+        private Item? _prev;
+        private int _count;
         //Конструктор
         public Stack(params string[] entries)
         {
-            //stackList = new List<string>(entries);
-            stackItemVar = new StackItem(entries);
-            Console.WriteLine("создался stackitem");
+            foreach (var t in entries)
+            {
+                Add(t);
+            }
+        }
+        //свойства
+        public int? Size => _count;
+        public string? Top => _tail?.Data;
+        //методы
+        public void Add(string? extraElement)
+        {
+            if (extraElement == null)
+            {
+                throw new ArgumentNullException(nameof(extraElement));
+            }
+            var item = new Item(extraElement);
+            if (_head == null)
+            {
+                _head = item;
+            }
+            else
+            {
+                _prev = _tail ?? throw new ArgumentNullException();
+                _tail.Next = item;
+            }
+            _tail = item;
+            _tail.Prev = _prev;
+            _count++;
         }
 
-        //свойства
-        //public int Size => stackList.Count;
-        //public string Top => stackList[stackList.Count];
-        public int? Size => stackItemVar.CountOfElem;
-        public string? Top => stackItemVar.TopElem;
-
-        //методы
-        public string[]? Add(string extraElement) => stackItemVar.Add(extraElement);
-        public string? Pop() => stackItemVar.Pop();
+        public string? Pop()
+        {
+            if (_count > 0)
+            {
+                var deleted = _tail?.Data;
+                _tail = _tail?.Prev;
+                _count--;
+                return deleted;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private class Item
+        {
+            //свойства
+            internal string Data { get; set; }
+            internal Item? Next { get; set; }
+            internal Item? Prev { get; set; }
+            //конструктор
+            internal Item(string data)
+            {
+                Data = data ?? throw new ArgumentNullException(nameof(data));
+            }
+        }
     }
 
 }

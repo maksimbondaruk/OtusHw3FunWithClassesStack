@@ -12,13 +12,13 @@
             s.Add("d");
             Console.WriteLine($"size = {s.Size}, добавлен элемент '{s.Top}'");                     // size = 3, Top = 'd'
             deleted = s.Pop();
-            Console.WriteLine($"size = {s.Size}, Top = '{s.Top}', извлечен '{deleted}'");                     // size = 2, Top = 'b'
+            Console.WriteLine($"size = {s.Size}, Top = {s.Top ?? "null"}, извлечен '{deleted ?? "null"}'"); // size = 2, Top = 'b'
             deleted = s.Pop();
-            Console.WriteLine($"size = {s.Size}, Top = '{s.Top}', извлечен '{deleted}'");                     // size = 1, Top = 'a'
+            Console.WriteLine($"size = {s.Size}, Top = {s.Top ?? "null"}, извлечен '{deleted ?? "null"}'"); // size = 1, Top = 'a'
             deleted = s.Pop();
-           Console.WriteLine($"size = {s.Size}, Top = {(s.Top == null ? "null" : s.Top)}");  // size = 0, Top = null
-            s.Pop();
-            Console.WriteLine("нормально закончили");
+            Console.WriteLine($"size = {s.Size}, Top = {s.Top ?? "null"}, извлечен '{deleted ?? "null"}'"); // size = 0, Top = null
+            deleted = s.Pop();
+            Console.WriteLine($"size = {s.Size}, Top = {s.Top ?? "null"}, извлечен '{deleted ?? "null"}'"); // size = 0, Top = null
         }
     }
 }
